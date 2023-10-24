@@ -1,0 +1,33 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object.title }}</title>
+</head>
+<h1>{{ post.title }}</h1>
+<img src="">
+<h2>{{ post.description }}</h2>
+<h5>Дата публикации: {{ post.create_data }}</h5>
+<form method="post">
+    {% csrf_token %}
+    <p>Текст {{ comment_form.text }}</p>
+    <button type="submit">Отправить комментарий</button>
+</form>
+
+<h2>Комментарии:</h2>
+{% if post.comments %}
+{% for comment in post.comments.all %}
+    <h3>{{ comment.text }}</h3>
+    <form method="post" action="{{object.id}}?id={{comment.id}}">
+        {% csrf_token %}
+        <input type="hidden" name="is_comment" value="{{ comment.id }}">
+        <p>Текст {{ comment_form.text }}</p>
+        <button type="submit">Отправить комментарий</button>
+        {% if comment %}
+        {% for com in comment.comment.all %}
+            <h3 style="margin-left: 20px;">{{ comment.text }}</h3>
+            {% endfor %}
+        {% endif %}
+    </form>
+{% endfor %}
+{% endif %}
+</html>

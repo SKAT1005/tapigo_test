@@ -1,0 +1,14 @@
+<html>
+{% if post_list %}
+<ul>
+  {% for post in post_list %}
+  <li>
+    <a href="/post/{{ post.id}}">{{post.title}}</a>
+  </li>
+  {% endfor %}
+
+</ul>
+{% else %}
+<p>Новостей пока нет.</p>
+{% endif %}
+</html>
